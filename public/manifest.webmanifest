@@ -1,0 +1,19 @@
+{
+  "id": "/",
+  "name": "LensPrompt — Teleprompter Camera",
+  "short_name": "LensPrompt",
+  "description": "Record videos with a teleprompter and camera effects.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "icons": [
+    {
+      "src": "/icons/lensprompt.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
