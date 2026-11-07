@@ -1,74 +1,106 @@
 # LensPrompt
 
-A browser-based teleprompter and camera-recording application. Upload a script, display it as a live scrolling layer, and record yourself while reading directly in front of the screen.
+**LensPrompt** is a browser-based teleprompter and camera studio. Write or upload a script, keep it scrolling beside the camera view, and record a video while reading naturally.
 
-> **Project status:** Live application. Some platform-specific capabilities remain unverified or unimplemented; see the limitations section below.
+> **Status:** Live application. Browser support and device-specific behavior vary; see [Known limitations](#known-limitations).
 
-## What it does
+## Features
 
-- **Script upload:** Bring your own script into the teleprompter.
-- **Live scrolling:** Read from a scrolling on-screen script layer while recording.
-- **Camera access:** Grant browser camera permission and record yourself.
-- **Recording workflows:** Supports recording with or without the script overlay, according to the current project roadmap.
-- **Visual processing:** The codebase includes person-mask and compositing workflows, with transparent-image handling and unsupported-feature fallbacks documented in the roadmap.
+- **Script teleprompter:** Paste or upload a script and use adjustable scrolling controls.
+- **Reading controls:** Adjust scroll speed, text size, opacity, line height, and script position.
+- **Camera and microphone:** Request browser camera and microphone access, switch camera facing mode where supported, and toggle microphone capture.
+- **Recording and export:** Record from the browser and download the resulting recording.
+- **Camera studio tools:** Apply visual filters and presets, with browser capability checks and fallbacks.
+- **Background processing:** Optional person segmentation and background replacement using MediaPipe Tasks Vision.
+- **Scene analysis:** Inspect a camera frame for visual characteristics and receive scene suggestions.
+- **Local persistence:** Script and user settings are stored in browser local storage.
 
-## Technology
+## Technology stack
 
-The current project manifest identifies this as a TypeScript/React application built with:
+The repository's application manifest and source imports identify the following stack:
 
-- React 19 and TypeScript
-- TanStack Start / TanStack Router
-- Vite
-- MediaPipe Tasks Vision
-- Tailwind CSS
-- Radix UI components
+- **Frontend:** React 19, TypeScript
+- **Application framework and routing:** TanStack Start, TanStack Router
+- **Build tooling:** Vite
+- **Computer vision:** MediaPipe Tasks Vision
+- **UI and styling:** Tailwind CSS, Radix UI, Lucide
+- **Other libraries:** PeerJS, Recharts, React Hook Form, Zod
 
-See `package.json` for the full dependency list.
+See [package.json](./package.json) for the complete dependency list.
 
-## Run locally
+## Getting started
 
-Prerequisites: a recent Node.js runtime and Bun (the repository includes `bun.lock`).
+### Prerequisites
+
+- A current Node.js runtime
+- [Bun](https://bun.sh/) (the repository includes `bun.lock`)
+
+### Install dependencies
 
 ```bash
 bun install
+```
+
+### Start the development server
+
+```bash
 bun run dev
 ```
 
-Build and check the project:
+### Build and lint
 
 ```bash
 bun run build
 bun run lint
 ```
 
-Preview a production build:
+### Run tests
+
+```bash
+bun test
+```
+
+### Preview the production build
 
 ```bash
 bun run preview
 ```
 
-## Repository structure
+Camera and microphone features require browser permissions and a secure context (for example, localhost or HTTPS).
 
-- `src/` — application source and routes
-- `tests/` — automated tests
-- `roadmap.md` — implementation status and known limitations
-- `package.json` — scripts and dependencies
+## Project structure
 
-This project uses TanStack Start file-based routing. Route files live under `src/routes/`; the root layout is `src/routes/__root.tsx`. The generated route tree should not be edited manually.
+```text
+src/
+  components/   Application components and reusable UI
+  hooks/        Reusable React hooks
+  lib/          Camera, segmentation, filters, pairing, and utility logic
+  routes/       TanStack file-based routes
+  styles.css    Global styles
+  router.tsx    Router configuration
+  server.ts     Server entry
+  start.ts      Application start configuration
+tests/          Automated tests
+roadmap.md      Verified fixes and known limitations
+```
 
-## Current limitations
+The app uses TanStack file-based routing. Route files live in `src/routes/`; `src/routes/__root.tsx` provides the root layout. The generated `src/routeTree.gen.ts` file should not be edited manually.
 
-The project roadmap explicitly notes that:
+## Known limitations
+
+The current project roadmap documents these limitations:
 
 - Physical iPhone Safari / Windows mirroring has not been verified.
 - Native Swift processing is not implemented.
-- Desktop Monitor is setup guidance only; it does not provide network streaming or device pairing.
+- The Desktop Monitor help/setup experience should not be treated as a verified native or cross-device streaming feature.
 
-These limitations are intentionally stated rather than represented as working features.
+Browser camera, canvas, filtering, and segmentation behavior can differ by browser and device. Unsupported paths should use the app's fallbacks rather than being assumed to work everywhere.
 
-## Project status
+## Development notes
 
-See [roadmap.md](./roadmap.md) for tested workflows, completed fixes, and remaining limitations.
+- Keep browser capture and compositing in the client-side camera studio.
+- The project includes tests for pairing state and person-mask behavior.
+- See [roadmap.md](./roadmap.md) for completed fixes and remaining verification work.
 
 ## Author
 
