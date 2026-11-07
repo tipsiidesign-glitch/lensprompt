@@ -1,5 +1,6 @@
 {
-  "name": "tanstack_start_ts",
+  "name": "lensprompt",
+  "description": "Browser-based teleprompter and camera recording application",
   "private": true,
   "sideEffects": false,
   "type": "module",
